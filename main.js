@@ -7,6 +7,7 @@ function quizInit() {
       choice3: "Koh Phang Nga",
       choice4: "Krabi",
       answer: "Phuket",
+      trivia: ".",
     },
 
     {
@@ -16,6 +17,7 @@ function quizInit() {
       choice3: "Penang",
       choice4: "Singapore",
       answer: "Penang",
+      trivia: ".",
     },
 
     {
@@ -25,6 +27,7 @@ function quizInit() {
       choice3: "Luang Prabang",
       choice4: "Siem Reap",
       answer: "Luang Prabang",
+      trivia: ".",
     },
 
     {
@@ -34,6 +37,7 @@ function quizInit() {
       choice3: "Indonesia",
       choice4: "Thailand",
       answer: "Thailand",
+      trivia: ". Thailand was never colonised and always a free nation.",
     },
 
     {
@@ -43,6 +47,7 @@ function quizInit() {
       choice3: "Hoi An",
       choice4: "Ha Long Bay",
       answer: "Hue",
+      trivia: ". Hue was the capital until Emperor Bao Dai abdicated.",
     },
 
     {
@@ -52,6 +57,7 @@ function quizInit() {
       choice3: "Shanghai Tang",
       choice4: "Jim Thompson",
       answer: "Shanghai Tang",
+      trivia: ". Shanghai Tang is a Hong Kong based company.",
     },
 
     {
@@ -61,6 +67,7 @@ function quizInit() {
       choice3: "1970",
       choice4: "1975",
       answer: "1967",
+      trivia: ".",
     },
 
     {
@@ -70,6 +77,7 @@ function quizInit() {
       choice3: "Thailand",
       choice4: "Malaysia",
       answer: "Brunei",
+      trivia: ". The founding members are Indonesia, Malaysia, Philippines, Singapore and Thailand. Brunei joined in 1984.",
     },
 
     {
@@ -79,17 +87,17 @@ function quizInit() {
       choice3: "Laos",
       choice4: "Malaysia",
       answer: "Laos",
-      trivia: "Laos' independence day is on 19 Jul",
+      trivia: ". Laos' independence day is on 19 Jul.",
     },
 
     {
-      qns: "Which airport is Southeast Asia's busiest in 2015?",
+      qns: "Which airport was Southeast Asia's busiest in 2015?",
       choice1: "Kuala Lumpur",
       choice2: "Suvarnabhumi, Bangkok",
       choice3: "Changi Airport",
       choice4: "Soekarno-Hatta, Jakarta",
       answer: "Changi Airport",
-      trivia: "SIN:55.4m, CGK:54.1m, BKK:52.8m, KUL:48.9m",
+      trivia: ". Changi had 55.4m people passing through, Jakarta had 54.1m, Bangkok had 52.8m and  KL had 48.9m.",
     },
 
     {
@@ -99,7 +107,7 @@ function quizInit() {
       choice3: "Historic City of Ayutthaya",
       choice4: "Historic City of Melaka",
       answer: "Ancient Temples of Bagan",
-      trivia: "",
+      trivia: ". Due to concern of unauthentic restoration efforts, UNESCO is withholding granting temples of Bagan a heritage status.",
     },
 
     {
@@ -109,7 +117,7 @@ function quizInit() {
       choice3: "White Rabbit Creamy Candy",
       choice4: "Mamee Monster",
       answer: "White Rabbit Creamy Candy",
-      trivia: "White Rabbit was started in Shanghai in 1943",
+      trivia: ". White Rabbit was started in Shanghai in 1943.",
     },
 
     {
@@ -119,7 +127,7 @@ function quizInit() {
       choice3: "Mulu Caves",
       choice4: "Chiang Dao Caves",
       answer: "Hang Son Doong Cave",
-      trivia: "Hang Son Doong Cave is 200m high, 150m wide and 5km long",
+      trivia: ". Hang Son Doong Cave is 200m high, 150m wide and 5km long.",
     },
 
     {
@@ -129,7 +137,7 @@ function quizInit() {
       choice3: "Thailand",
       choice4: "Vietnam",
       answer: "Philippines",
-      trivia: "Indonesia: 259m, Philippines: 100m, Vietnam: 91m, Thailand: 68m, Myanmar: 51m",
+      trivia: ". Indonesia has 259m people, Philippines 100m, Vietnam 91m, Thailand 68m and Myanmar 51m.",
     },
 
     {
@@ -139,7 +147,7 @@ function quizInit() {
       choice3: "Indonesia",
       choice4: "Thailand",
       answer: "Indonesia",
-      trivia: "Indonesia is the world's largest producer and Malaysia is the next largest",
+      trivia: ". Indonesia is the world's largest producer and Malaysia is the next largest.",
     },
   ];
 
@@ -154,7 +162,7 @@ function quizInit() {
       $nextBtn = $('.nextBtn'),
       $resetBtn = $('.resetBtn')
       qnsNum = 0,
-      ttlQns = 3,//Refers to total number of question for EACH player
+      ttlQns = 2,//Refers to total number of question for EACH player
       player1Score = 0,
       player2Score = 0;
 
@@ -168,7 +176,7 @@ function quizInit() {
       //DOM manipulation to toggle show/hide question/answer
       var numOfQns = Math.ceil((qnsNum + 1) / 2);//Same as numberOfQuestions as per requirement
 
-      $heading.css({"padding":"10px 0", "font-size":".9em", "color":"white", "background-color":"#404196", "border-radius":"5px"});
+      $heading.addClass("miniHead");
       $score.text("SCORE");
       $player1.text("Player 1 :  " + player1Score);
       $player2.text("Player 2 :  " + player2Score);
@@ -190,9 +198,10 @@ function quizInit() {
     $choice.click(function(){
       //DOM manipulation to toggle show/hide choice/answer
       $choice.hide();
+      $nextBtn.text("Next Question");
       //check answer
       if( (($(this).text())) === ((quizzes[qnsNum].answer)) ) {
-        $answer.show().text("You are right!");
+        $answer.show().text("You are right! The answer is " + quizzes[qnsNum].answer + quizzes[qnsNum].trivia);
         if(qnsNum % 2 === 0) {
           player1Score++;
           $player1.text("Player 1 :  " + player1Score);
@@ -201,7 +210,7 @@ function quizInit() {
           $player2.text("Player 2 :  " + player2Score);
         }
       } else {
-        $answer.show().text("Sorry, your answer is incorrect! The correct answer is " + quizzes[qnsNum].answer);
+        $answer.show().text("Sorry, your answer is incorrect! The correct answer is " + quizzes[qnsNum].answer + quizzes[qnsNum].trivia);
       }
       isGameOver();
       qnsNum++;
@@ -247,7 +256,7 @@ function quizInit() {
       } else if (player1Score < player2Score) {
         $mainBoard.show().text("Game over! Player 2, looks like you know Southeast Asia better than Player 1! You win this quiz!");
       } else {
-        $mainBoard.show().text("Game over! It's a draw!");
+        $mainBoard.show().text("Game over! You 2 know Southeast Asia equally well! It's a draw!");
       }
     }
   }
